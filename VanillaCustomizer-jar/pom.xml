@@ -58,7 +58,7 @@
                             <workingDirectory>${project.parent.basedir}</workingDirectory>
                             <arguments>
                                 <argument>/C</argument>
-                                <argument>maven_exec\CopyFile.bat</argument>
+                                <argument>.mvn-exec\CopyFile.bat</argument>
                             </arguments>
                         </configuration>
                         <goals>
