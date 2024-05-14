@@ -1,0 +1,9 @@
+name: VanillaCustomizer
+version: 0.2
+main: dev.lone.vanillacustomizer.Main
+api-version: 1.13
+commands:
+  vanillacustomizer:
+    description: Main admin plugin command
+    usage: /<command>
+    permission: "vanillacustomizer.admin"

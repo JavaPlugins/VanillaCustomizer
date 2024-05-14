@@ -1,0 +1,44 @@
+customizations:
+  custom1:
+    rules:
+      material_wildcards:
+        - "*_SWORD"
+    changes:
+      rename: "Amogus"
+  custom2:
+    rules:
+      material: STONE
+    changes:
+      rename: "CUSTOM RULE 2!!!!"
+  custom3:
+    rules:
+      materials:
+        - DIAMOND
+        - EMERALD
+    changes:
+      rename: "CUSTOM RULE 3!!!"
+  custom4:
+    rules:
+      materials:
+        - DIAMOND_CHESTPLATE
+        - EMERALD
+    changes:
+      rename: "CUSTOM RULE 4!!!"
+  custom5:
+    rules:
+      materials:
+        - IRON_INGOT
+    changes:
+      replace_word_display_name:
+        from: "test"
+        to: "changed_text!!!"
+  custom6:
+    rules:
+      nbt:
+        path: "itemsadder.id"
+        value: ruby
+        type: string
+    changes:
+      replace_word_display_name:
+        from: "Rub"
+        to: "FOUND NBT RULE!"

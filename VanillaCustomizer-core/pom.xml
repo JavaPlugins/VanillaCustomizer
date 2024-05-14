@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>VanillaCustomizer</artifactId>
+        <groupId>dev.lone</groupId>
+        <version>VERSION</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>VanillaCustomizer-core</artifactId>
+
+    <repositories>
+        <!-- This adds the Spigot Maven repository to the build -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>jitpack-repo</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>maven-central</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <version>3.3.0-SNAPSHOT</version>-->
+<!--                <configuration>-->
+<!--                    <minimizeJar>true</minimizeJar> &lt;!&ndash; Used to remove unused libs code from the "includes" list &ndash;&gt;-->
+<!--                    <filters>-->
+<!--                        <filter>-->
+<!--                            <excludeDefaults>false</excludeDefaults>-->
+<!--                            <artifact>*:*</artifact>-->
+<!--                            <includes>-->
+<!--                                <include>org.apache.*</include>-->
+<!--                                <include>math.fast.*</include>-->
+<!--                            </includes>-->
+<!--                            &lt;!&ndash; Do not include META-INF of the libs in the final build &ndash;&gt;-->
+<!--                            <excludes>-->
+<!--                                <exclude>META-INF/**</exclude>-->
+<!--                            </excludes>-->
+<!--                        </filter>-->
+<!--                    </filters>-->
+<!--                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml-->
+<!--                    </dependencyReducedPomLocation>-->
+<!--                    <relocations>-->
+<!--                        &lt;!&ndash; Shade libs &ndash;&gt;-->
+<!--                        <relocation>-->
+<!--                            <pattern>com.github.SkinsRestorer</pattern>-->
+<!--                            <shadedPattern>dev.lone.shaded.VanillaCustomizer.com.github.SkinsRestorer</shadedPattern>-->
+<!--                        </relocation>-->
+<!--                        <relocation>-->
+<!--                            <pattern>com.zaxxer</pattern>-->
+<!--                            <shadedPattern>dev.lone.shaded.VanillaCustomizer.com.zaxxer</shadedPattern>-->
+<!--                        </relocation>-->
+<!--                        <relocation>-->
+<!--                            <pattern>org.jetbrains</pattern>-->
+<!--                            <shadedPattern>dev.lone.shaded.VanillaCustomizer.org.jetbrains</shadedPattern>-->
+<!--                        </relocation>-->
+<!--                        <relocation>-->
+<!--                            <pattern>org.yaml</pattern>-->
+<!--                            <shadedPattern>dev.lone.shaded.VanillaCustomizer.org.yaml</shadedPattern>-->
+<!--                        </relocation>-->
+<!--                    </relocations>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <createDependencyReducedPom>true</createDependencyReducedPom>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+        </plugins>
+    </build>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
+            <classifier>remapped-mojang</classifier>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.lone.LoneLibs</groupId>
+            <artifactId>LoneLibs</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${jars_libs_folder}/LoneLibs.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>libs</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${jars_libs_folder}/ProtocolLib.jar</systemPath>
+        </dependency>
+
+    </dependencies>
+
+</project>

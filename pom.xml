@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.lone</groupId>
+    <artifactId>VanillaCustomizer</artifactId>
+    <version>VERSION</version>
+
+    <name>VanillaCustomizer</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <jars_libs_folder>C:/Progetti/Minecraft/Spigot/_jars</jars_libs_folder>
+    </properties>
+
+    <modules>
+        <module>VanillaCustomizer-core</module>
+        <module>VanillaCustomizer-jar</module>
+        <module>VanillaCustomizer-nms-v1_20_R3</module>
+        <module>VanillaCustomizer-nms-v1_20_R2</module>
+        <module>VanillaCustomizer-nms-v1_20_R1</module>
+        <module>VanillaCustomizer-nms-v1_19_R3</module>
+        <module>VanillaCustomizer-nms-v1_18_R2</module>
+        <module>VanillaCustomizer-nms-v1_17_R1</module>
+    </modules>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>bytecode.space</id>
+            <url>https://repo.bytecode.space/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <!--        <directory>R:\MavenBuildTarget\VanillaCustomizer\${project.artifactId}\target\</directory>-->
+        <directory>${project.basedir}/../.cache/targets/${project.artifactId}/target/</directory>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.extensions</groupId>
+                <artifactId>maven-build-cache-extension</artifactId>
+                <version>1.0.1-SNAPSHOT-unofficial-1.0.0</version>
+            </extension>
+            <extension>
+                <groupId>co.leantechniques</groupId>
+                <artifactId>maven-buildtime-extension</artifactId>
+                <version>2.0.3</version>
+            </extension>
+        </extensions>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <!-- Disable useless maven plugins -->
+        <!-- https://developer.jboss.org/people/ozizka/blog/2013/07/06/how-to-speed-up-maven-builds-disabling-unused-plugins -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions> <execution> <id>default-clean</id> <phase>none</phase> </execution> </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <executions> <execution> <id>default-test</id> <phase>none</phase> </execution> </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <release>16</release>
+                </configuration>
+                <executions>
+                    <execution> <id>default-testCompile</id> <phase>none</phase> </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution> <id>default-testResources</id> <phase>none</phase> </execution>
+                </executions>
+            </plugin>
+            <!--           <plugin>-->
+            <!--               <groupId>org.apache.maven.plugins</groupId>-->
+            <!--               <artifactId>maven-jar-plugin</artifactId>-->
+            <!--               <executions> <execution> <id>default-jar</id> <phase>none</phase> </execution> </executions>-->
+            <!--           </plugin>-->
+        </plugins>
+    </build>
+
+</project>
