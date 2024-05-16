@@ -1,6 +1,6 @@
-![https://i.imgur.com/P7zYf7w.png](https://i.imgur.com/P7zYf7w.png)
-
 ## What is this plugin?
+
+[**Plugin wiki**](https://lonedev.gitbook.io/vanillacustomizer/)
 
 
 * Customize the vanilla game items without touching them. All changes are only visual and won't interfere in any way with any plugin or game logic.
@@ -11,5 +11,4 @@
 * Give your players more information about what an item can be used for.
 * Put some server events information on items. For example show a tag in the lore of every item required during a Christmas quests.
 
-
-[## Plugin wiki]('https://lonedev.gitbook.io/vanillacustomizer/')
+![https://i.imgur.com/P7zYf7w.png](https://i.imgur.com/P7zYf7w.png)
