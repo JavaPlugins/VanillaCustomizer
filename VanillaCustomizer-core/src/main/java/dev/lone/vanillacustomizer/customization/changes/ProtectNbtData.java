@@ -8,7 +8,7 @@ public class ProtectNbtData implements IChange
     @Override
     public void apply(ChangeSession session)
     {
-        NBTItem nbt = session.nbt();
+        NBTItem nbt = session.nbtLegacy();
         nbt.removeKey("PublicBukkitValues");
         nbt.removeKey("itemsadder");
 

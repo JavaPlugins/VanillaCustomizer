@@ -5,7 +5,7 @@
     <parent>
         <artifactId>VanillaCustomizer</artifactId>
         <groupId>dev.lone</groupId>
-        <version>VERSION</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>dev.lone</groupId>
             <artifactId>VanillaCustomizer-core</artifactId>
-            <version>VERSION</version>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
 

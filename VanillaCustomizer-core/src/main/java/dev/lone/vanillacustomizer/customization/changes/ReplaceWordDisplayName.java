@@ -4,7 +4,9 @@ import dev.lone.LoneLibs.nbt.nbtapi.NBTCompound;
 import dev.lone.LoneLibs.nbt.nbtapi.NBTItem;
 import dev.lone.vanillacustomizer.ChangeSession;
 import dev.lone.LoneLibs.chat.Comp;
+import dev.lone.vanillacustomizer.nms.NMS;
 import dev.lone.vanillacustomizer.utils.ConfigFile;
+import lonelibs.dev.lone.fastnbt.nms.nbt.NItem;
 
 public class ReplaceWordDisplayName implements IChange
 {
@@ -27,7 +29,15 @@ public class ReplaceWordDisplayName implements IChange
 
         String name = session.refreshMeta().getDisplayName().replace(from, to);
 
-        NBTItem nbt = session.nbt();
+        if(NMS.is_v1_1_20_5_or_greater)
+        {
+            NItem nbt = session.nbt();
+            nbt.setCustomName(Comp.legacyToJson(name));
+            nbt.save();
+            return;
+        }
+
+        NBTItem nbt = session.nbtLegacy();
         NBTCompound display = nbt.getOrCreateCompound("display");
         display.setString("Name", Comp.legacyToJson(name));
 

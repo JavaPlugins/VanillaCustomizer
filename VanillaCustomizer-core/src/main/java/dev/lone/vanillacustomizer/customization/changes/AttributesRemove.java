@@ -6,12 +6,12 @@ import dev.lone.vanillacustomizer.ChangeSession;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
-import dev.lone.LoneLibs.annotations.NotNull;
-import dev.lone.LoneLibs.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-@Deprecated //TODO
+@Deprecated //TODO implement this shit
 public class AttributesRemove implements IChange
 {
     Multimap<Attribute, AttributeModifier> modifiers;

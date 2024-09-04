@@ -1,8 +1,8 @@
 package dev.lone.vanillacustomizer.utils;
 
-import dev.lone.LoneLibs.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.lone.vanillacustomizer.Main;
-import dev.lone.vanillacustomizer.nms.Nms;
+import dev.lone.vanillacustomizer.nms.NMS;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -15,7 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
-import dev.lone.LoneLibs.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 /**
  * 2020-01-08 LoneDev
  */
+@SuppressWarnings("unused")
 public class ConfigFile
 {
     private static final Pattern hexPattern = Pattern.compile("%#([A-Fa-f0-9]){6}%");
@@ -220,17 +221,14 @@ public class ConfigFile
 
     private static String convertColor0(String message)
     {
-        if (Nms.is_v1_16_or_greater)
+        Matcher matcher = hexPattern.matcher(message);
+        while (matcher.find())
         {
-            Matcher matcher = hexPattern.matcher(message);
-            while (matcher.find())
-            {
-                final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
-                final String before = message.substring(0, matcher.start());
-                final String after = message.substring(matcher.end());
-                message = before + hexColor + after;
-                matcher = hexPattern.matcher(message);
-            }
+            final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+            final String before = message.substring(0, matcher.start());
+            final String after = message.substring(matcher.end());
+            message = before + hexColor + after;
+            matcher = hexPattern.matcher(message);
         }
         return message.replace("&", "\u00A7");
     }

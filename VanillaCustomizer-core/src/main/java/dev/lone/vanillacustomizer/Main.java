@@ -27,6 +27,7 @@ public final class Main extends JavaPlugin implements Listener
     // https://game8.co/games/Minecraft/archives/378457#hl_1
 
     //DO NOT SET AS "final" OR SPIGOT.MC won't replace it.
+    @SuppressWarnings("unused")
     public static String b = "%%__USER__%%";
     public static Msg msg;
 

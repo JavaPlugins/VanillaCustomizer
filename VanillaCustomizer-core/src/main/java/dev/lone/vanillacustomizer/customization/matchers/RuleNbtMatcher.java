@@ -28,7 +28,7 @@ public class RuleNbtMatcher implements IRule
         {
             nbtValueType = NBTType.valueOf(nbtTypeFixed);
         }
-        catch(IllegalArgumentException exc)
+        catch (IllegalArgumentException exc)
         {
             throw new IllegalArgumentException("Unknown nbt.type '" + nbtValueTypeStr + "' for nbt path '" + nbtPath + "'." +
                     ChatColor.GRAY + " Allowed: string, int, float, double, byte, short");
@@ -49,6 +49,7 @@ public class RuleNbtMatcher implements IRule
                 break;
             case NBTTagByte:
                 nbtValue = Byte.parseByte(nbtValueStr);
+                break;
             case NBTTagShort:
                 nbtValue = Short.parseShort(nbtValueStr);
                 break;
@@ -71,36 +72,40 @@ public class RuleNbtMatcher implements IRule
     public boolean matches(ItemStack item)
     {
         NBTItem nbt = new NBTItem(item);
-
         if (!nbt.hasTag(nbtPathSplit[0]))
             return false;
 
         NBTCompound currentCompound = nbt.getCompound(nbtPathSplit[0]);
-        for(int i=1; i<nbtPathSplit.length-1; i++)
+        if(currentCompound == null)
+            return false;
+        for (int i = 1; i < nbtPathSplit.length - 1; i++)
         {
+            assert currentCompound != null;
             if (!currentCompound.hasTag(nbtPathSplit[i]))
                 return false;
             currentCompound = currentCompound.getCompound(nbtPathSplit[i]);
         }
-        if (!currentCompound.hasTag(nbtPathSplit[nbtPathSplit.length-1]))
+
+        assert currentCompound != null;
+        if (!currentCompound.hasTag(nbtPathSplit[nbtPathSplit.length - 1]))
             return false;
 
-        NBTType nbtType = currentCompound.getType(nbtPathSplit[nbtPathSplit.length-1]);
+        NBTType nbtType = currentCompound.getType(nbtPathSplit[nbtPathSplit.length - 1]);
         if (nbtType != nbtValueType)
             return false;
 
         if (nbtType == NBTType.NBTTagString)
-            return (currentCompound.getString(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getString(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
         else if (nbtType == NBTType.NBTTagInt)
-            return (currentCompound.getInteger(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getInteger(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
         else if (nbtType == NBTType.NBTTagDouble)
-            return (currentCompound.getDouble(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getDouble(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
         else if (nbtType == NBTType.NBTTagFloat)
-            return (currentCompound.getFloat(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getFloat(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
         else if (nbtType == NBTType.NBTTagByte)
-            return (currentCompound.getByte(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getByte(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
         else if (nbtType == NBTType.NBTTagShort)
-            return (currentCompound.getShort(nbtPathSplit[nbtPathSplit.length-1]).equals(nbtValue));
+            return (currentCompound.getShort(nbtPathSplit[nbtPathSplit.length - 1]).equals(nbtValue));
 
         return false;
     }

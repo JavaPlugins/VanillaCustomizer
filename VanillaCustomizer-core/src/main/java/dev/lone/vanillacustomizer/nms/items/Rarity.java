@@ -2,6 +2,7 @@ package dev.lone.vanillacustomizer.nms.items;
 
 import org.bukkit.Color;
 
+@SuppressWarnings("unused")
 public enum Rarity
 {
     COMMON(Color.WHITE),

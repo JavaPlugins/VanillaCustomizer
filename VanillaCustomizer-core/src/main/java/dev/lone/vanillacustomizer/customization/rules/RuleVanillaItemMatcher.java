@@ -1,7 +1,7 @@
 package dev.lone.vanillacustomizer.customization.rules;
 
 import dev.lone.vanillacustomizer.ChangeSession;
-import dev.lone.vanillacustomizer.utils.Utilz;
+import dev.lone.vanillacustomizer.utils.Utils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,14 +27,14 @@ public class RuleVanillaItemMatcher implements IRule
             return true;
 
         // TODO: warning, items with no lore would still be considered vanilla while they might be custom.
-        //  might need to check NBT
+        //  Might need to check NBT.
         if(meta.hasLore())
-        {
             return false;
-        }
+
+        // TODO: check if it has PersistentDataContainer, for example.
 
         String displayName = meta.getDisplayName();
-        displayName = Utilz.backColor(displayName);
+        displayName = Utils.backColor(displayName);
 
         // Check if italic, means that might have been renamed using anvil.
         return !displayName.startsWith("&o");
@@ -49,6 +49,8 @@ public class RuleVanillaItemMatcher implements IRule
     @Override
     public boolean matches(ChangeSession session)
     {
-        return session.isVanilla;
+        if(isVanilla)
+            return session.isVanilla;
+        return !session.isVanilla;
     }
 }

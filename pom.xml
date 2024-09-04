@@ -6,7 +6,7 @@
 
     <groupId>dev.lone</groupId>
     <artifactId>VanillaCustomizer</artifactId>
-    <version>VERSION</version>
+    <version>1.0</version>
 
     <name>VanillaCustomizer</name>
     <packaging>pom</packaging>
@@ -22,6 +22,8 @@
     <modules>
         <module>VanillaCustomizer-core</module>
         <module>VanillaCustomizer-jar</module>
+        <module>VanillaCustomizer-nms-v1_21_1</module>
+        <module>VanillaCustomizer-nms-v1_20_6</module>
         <module>VanillaCustomizer-nms-v1_20_R3</module>
         <module>VanillaCustomizer-nms-v1_20_R2</module>
         <module>VanillaCustomizer-nms-v1_20_R1</module>

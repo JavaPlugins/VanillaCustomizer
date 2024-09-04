@@ -1,6 +1,6 @@
 package dev.lone.vanillacustomizer.nms.items;
 
-import dev.lone.vanillacustomizer.nms.Nms;
+import dev.lone.vanillacustomizer.nms.NMS;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.CookingRecipe;
@@ -17,7 +17,7 @@ public class ItemsNms
 
     ItemsNms()
     {
-        nms = Nms.findImplementation(IItemsNms.class, this, false);
+        nms = NMS.findImplementation(IItemsNms.class, this, false);
     }
 
     public static ItemsNms inst()

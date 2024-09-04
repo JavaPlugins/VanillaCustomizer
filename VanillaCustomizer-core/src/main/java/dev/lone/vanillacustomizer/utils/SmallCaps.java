@@ -1,6 +1,6 @@
 package dev.lone.vanillacustomizer.utils;
 
-import dev.lone.LoneLibs.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class SmallCaps
 {

@@ -111,9 +111,9 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+# My stuff
 /.cache/
-/output/
 /.paper-nms/
-/custom_mapping.txt
-/.assets/
-target
+/output/
+

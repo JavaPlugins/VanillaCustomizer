@@ -1,10 +1,10 @@
 package dev.lone.vanillacustomizer.commands.registered;
 
-import dev.lone.LoneLibs.annotations.NotNull;
 import dev.lone.vanillacustomizer.Main;
 import dev.lone.vanillacustomizer.commands.CommandRun;
 import dev.lone.vanillacustomizer.utils.SmallCaps;
 import fr.mrmicky.fastinv.FastInv;
+import org.jetbrains.annotations.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -58,7 +58,11 @@ public class MainCommand extends CommandRun
                     break;
 
                 case "small":
-
+                    if(args.length < 2)
+                    {
+                        Main.msg.send(player, "Usage: /vanillacustomizer small <text>");
+                        return;
+                    }
                     String text = args[1];
                     Main.msg.send(player, SmallCaps.apply(text));
                     break;
@@ -130,6 +134,8 @@ public class MainCommand extends CommandRun
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, Command command, @NotNull String alias, @NotNull String[] args)
     {
-        return List.of("reload", "showdebugtag", "small", "debugmenu");
+        if(args.length == 1)
+            return List.of("reload", "showdebugtag", "small", "debugmenu");
+        return List.of();
     }
 }

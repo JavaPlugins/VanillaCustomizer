@@ -1,8 +1,9 @@
 package dev.lone.vanillacustomizer.nms;
 
-import dev.lone.LoneLibs.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import dev.lone.LoneLibs.nbt.nbtapi.utils.MinecraftVersion;
 import dev.lone.vanillacustomizer.Main;
+import lonelibs.dev.lone.fastnbt.nms.Version;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,19 +11,13 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Utility to initialize NMS wrappers and avoid Maven circular dependency problems.
  */
-public class Nms
+public class NMS
 {
-    public static boolean is_v18_2_or_greater;
-    public static boolean is_v19_2_or_greater;
-    public static boolean is_v17_or_greater;
-    public static boolean is_v1_16_or_greater;
+    public static boolean is_v1_1_20_5_or_greater;
 
     static
     {
-        is_v19_2_or_greater = MinecraftVersion.isAtLeastVersion(MinecraftVersion.MC1_19_R1);
-        is_v18_2_or_greater = MinecraftVersion.isAtLeastVersion(MinecraftVersion.MC1_18_R1);
-        is_v17_or_greater = MinecraftVersion.isAtLeastVersion(MinecraftVersion.MC1_17_R1);
-        is_v1_16_or_greater = MinecraftVersion.isAtLeastVersion(MinecraftVersion.MC1_16_R1);
+        is_v1_1_20_5_or_greater = Version.isAtLeast(Version.v1_20_5);
     }
 
     /**
@@ -36,9 +31,9 @@ public class Nms
      */
     @Nullable
     @SuppressWarnings("unchecked")
-    public static <T> T findImplementation(Class<T> implClazz, Object nmsHolder, boolean ignoreError)
+    public static <T> T findImplementation(@SuppressWarnings("unused") Class<T> implClazz, Object nmsHolder, boolean ignoreError)
     {
-        String nmsVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        String nmsVersion = Version.get().name();
 
         try
         {

@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_19_R3.util.CraftMagicNumbers;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("unused")
 public class v1_19_R3 implements IItemsNms
 {
     @Override

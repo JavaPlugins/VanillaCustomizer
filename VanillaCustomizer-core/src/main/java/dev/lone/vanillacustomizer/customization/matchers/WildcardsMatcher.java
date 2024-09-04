@@ -6,7 +6,7 @@ import org.apache.commons.io.IOCase;
 import java.util.ArrayList;
 import java.util.List;
 
-@Deprecated
+@Deprecated // TODO: implement that shit
 public class WildcardsMatcher implements ITextMatcher
 {
 //    private List<String> wildcardStart;

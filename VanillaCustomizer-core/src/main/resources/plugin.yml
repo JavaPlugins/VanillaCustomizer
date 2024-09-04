@@ -1,5 +1,5 @@
 name: VanillaCustomizer
-version: 0.2
+version: 0.3
 main: dev.lone.vanillacustomizer.Main
 api-version: 1.13
 commands:

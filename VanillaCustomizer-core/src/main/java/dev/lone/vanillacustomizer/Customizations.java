@@ -2,7 +2,8 @@ package dev.lone.vanillacustomizer;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import dev.lone.LoneLibs.annotations.Nullable;
+import dev.lone.vanillacustomizer.exception.InvalidCustomizationPropertyException;
+import org.jetbrains.annotations.Nullable;
 import dev.lone.vanillacustomizer.api.VanillaCustomizerApi;
 import dev.lone.vanillacustomizer.commands.registered.MainCommand;
 import dev.lone.vanillacustomizer.customization.changes.*;
@@ -39,13 +40,21 @@ public class Customizations
         {
             ConfigFile config = new ConfigFile(Main.inst(), false, file.toPath().toString(), false, false);
 
-            ConfigurationSection cosmeticsSection = config.getConfigurationSection("customizations");
-            if (cosmeticsSection == null) // File has no rules
+            boolean ignoreInventoriesEnabled = config.getBoolean("settings.ignore_inventories.enabled");
+            boolean ignoreAnyCustomInventory = ignoreInventoriesEnabled && config.getBoolean("settings.ignore_inventories.any_custom", false);
+            List<String> ignoreInventoriesByTitle = ignoreInventoriesEnabled ? config.getStringList("settings.ignore_inventories.by_title"): null;
+
+            ConfigurationSection customizationsSection = config.getConfigurationSection("customizations");
+            if (customizationsSection == null) // File has no rules
                 continue;
 
-            for (String key : cosmeticsSection.getKeys(false))
+            for (String key : customizationsSection.getKeys(false))
             {
-                Customization customization = new Customization();
+                Customization customization = new Customization(
+                        ignoreInventoriesEnabled,
+                        ignoreAnyCustomInventory,
+                        ignoreInventoriesByTitle
+                );
                 ConfigurationSection section = config.getConfigurationSection("customizations." + key);
                 assert section != null;
 
@@ -169,7 +178,7 @@ public class Customizations
                     }
                     catch (Throwable ex)
                     {
-                        if(ex instanceof InvalidCustomizationPropertyExtension)
+                        if(ex instanceof InvalidCustomizationPropertyException)
                         {
                             Main.msg.error("Error loading customization '" + key + "'. File: " + config.getPartialFilePath());
                             Main.msg.error(ex.getMessage());
@@ -282,10 +291,10 @@ public class Customizations
                                     }
                                     else if (tmp.length == 2)
                                     {
-                                        if (Utilz.isNumeric(tmp[1]))
+                                        if (Utils.isNumeric(tmp[1]))
                                         {
                                             enchant = Enchantment.getByName(tmp[0]);
-                                            enchantLevel = Utilz.parseInt(tmp[1], 1);
+                                            enchantLevel = Utils.parseInt(tmp[1], 1);
 
                                             if (enchant == null)
                                                 enchant = Enchantment.getByKey(NamespacedKey.minecraft(tmp[0]));
@@ -298,7 +307,7 @@ public class Customizations
                                     else if (tmp.length == 3)
                                     {
                                         enchant = Enchantment.getByKey(new NamespacedKey(tmp[0], tmp[1]));
-                                        enchantLevel = Utilz.parseInt(tmp[2], 1);
+                                        enchantLevel = Utils.parseInt(tmp[2], 1);
                                     }
 
                                     enchants.put(enchant, enchantLevel);
@@ -324,7 +333,7 @@ public class Customizations
                                     }
                                     else if (tmp.length == 2)
                                     {
-                                        if (Utilz.isNumeric(tmp[1]))
+                                        if (Utils.isNumeric(tmp[1]))
                                         {
                                             enchant = Enchantment.getByName(tmp[0]);
                                             if (enchant == null)
@@ -360,11 +369,11 @@ public class Customizations
                                         throwInvalidConfig();
 
                                     @Nullable String attributeStr = getStringOrThrow(attributeSection, "attribute");
-                                    Attribute attribute = Utilz.strToAttributeType(attributeStr);
+                                    Attribute attribute = Utils.strToAttributeType(attributeStr);
                                     if (attribute == null)
                                         throwInvalidPropertyValue("attribute");
                                     @Nullable String slotStr = getStringOrThrow(attributeSection, "slot");
-                                    EquipmentSlot slot = Utilz.strToVanillaEquipmentSlot(slotStr);
+                                    EquipmentSlot slot = Utils.strToVanillaEquipmentSlot(slotStr);
                                     if (slot == null)
                                         throwInvalidPropertyValue("slot");
 
@@ -422,7 +431,7 @@ public class Customizations
                     }
                     catch (Throwable ex)
                     {
-                        if(ex instanceof InvalidCustomizationPropertyExtension)
+                        if(ex instanceof InvalidCustomizationPropertyException)
                         {
                             Main.msg.error("Error loading customization '" + key + "'. File: " + config.getPartialFilePath());
                             Main.msg.error(ex.getMessage());
@@ -451,22 +460,22 @@ public class Customizations
 
     private void throwInvalidConfig()
     {
-        throw new InvalidCustomizationPropertyExtension("Invalid configuration. Please check the tutorials.");
+        throw new InvalidCustomizationPropertyException("Invalid configuration. Please check the tutorials.");
     }
 
     private void throwMissingProperty(String name)
     {
-        throw new InvalidCustomizationPropertyExtension("Missing property '" + name + "'.");
+        throw new InvalidCustomizationPropertyException("Missing property '" + name + "'.");
     }
 
     private void throwInvalidPropertyValue(String name)
     {
-        throw new InvalidCustomizationPropertyExtension("Invalid value for property '" + name + "'.");
+        throw new InvalidCustomizationPropertyException("Invalid value for property '" + name + "'.");
     }
 
     private void throwInvalidPropertyValue(String name, String value)
     {
-        throw new InvalidCustomizationPropertyExtension("Invalid value for property '" + name + "' -> '" + value + "'.");
+        throw new InvalidCustomizationPropertyException("Invalid value for property '" + name + "' -> '" + value + "'.");
     }
 
     public void handle(ItemStack itemStack, Player player)
@@ -475,7 +484,7 @@ public class Customizations
             return;
 
         boolean trackChanges = MainCommand.hasDebugTag(player);
-        ChangeSession session = new ChangeSession(itemStack, trackChanges);
+        ChangeSession session = new ChangeSession(itemStack, player, trackChanges);
         for (Map.Entry<String, Customization> entry : customizations.entrySet())
         {
             Customization customization = entry.getValue();

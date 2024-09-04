@@ -15,7 +15,7 @@ public class ReplaceCustomModelData implements IChange
     @Override
     public void apply(ChangeSession session)
     {
-        NBTItem nbt = session.nbt();
+        NBTItem nbt = session.nbtLegacy();
         nbt.setInteger("CustomModelData", id);
 
         session.saveNbt();

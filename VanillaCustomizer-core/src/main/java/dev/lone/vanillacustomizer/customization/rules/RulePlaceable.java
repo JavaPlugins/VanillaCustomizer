@@ -14,6 +14,8 @@ public class RulePlaceable implements IRule
     @Override
     public boolean matches(ItemStack item)
     {
-        return item.getType().isBlock();
+        if(placeable)
+            return item.getType().isBlock();
+        return !item.getType().isBlock();
     }
 }
