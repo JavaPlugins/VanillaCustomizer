@@ -1,6 +1,5 @@
-## What is this plugin?
-
-[**Plugin wiki**](https://lonedev.gitbook.io/vanillacustomizer/)
+## [**Plugin wiki**](https://lonedev.gitbook.io/vanillacustomizer/)
+## Issues reports [here](https://github.com/PluginBugs/Issues-VanillaCustomizer/issues)
 
 
 * Customize the vanilla game items without touching them. All changes are only visual and won't interfere in any way with any plugin or game logic.
